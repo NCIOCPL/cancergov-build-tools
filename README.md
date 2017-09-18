@@ -20,7 +20,7 @@ Execute with the command:
 
 The subsitution_list file contains an XML document containing a list of `substitute` elements, each containing a pair of `find` and `replacement` elements.  If the `replacement` element contains XML or HTML, it must be enclosed in a CDATA secton.
 
-```
+```xml
 <substitutions>
 	<substitute>
 		<find>SIMPLE_TEXT</find>
