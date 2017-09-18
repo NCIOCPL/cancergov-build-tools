@@ -11,7 +11,7 @@ Param(
 )
 
 [xml]$substitutions = Get-Content $SubstituteList
-[string]$data = Get-Content $InputFile
+[string]$data = Get-Content -Raw $InputFile
 
 foreach($substitute in $substitutions.substitutions.substitute) {
 
