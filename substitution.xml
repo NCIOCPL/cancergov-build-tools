@@ -1,0 +1,11 @@
+<!-- Sample substitutions file -->
+<substitutions>
+	<substitute>
+		<find>SIMPLE_TEXT</find>
+		<replacement>Replacement text 1</replacement>
+	</substitute>
+	<substitute>
+		<find>HTML_TEXT</find>
+		<replacement><![CDATA[Longer bit of text. Perhaps a bit of HTML. <br>]]></replacement>
+	</substitute>
+</substitutions>
