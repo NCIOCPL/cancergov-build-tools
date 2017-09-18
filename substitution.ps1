@@ -3,8 +3,8 @@ Param(
 	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
 	[string]$InputFile,
 
-#	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
-#	[string]$OutputFile,
+	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
+	[string]$OutputFile,
 
 	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
 	[string]$SubstituteList
@@ -29,7 +29,4 @@ foreach($substitute in $substitutions.substitutions.substitute) {
 	$data = $data.Replace($find, $replacement)
 }
 
-Write-Output $data
-
-
-
+Set-Content -Path $OutputFile -Value $data
