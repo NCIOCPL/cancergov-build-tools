@@ -6,12 +6,12 @@
 	Reads a text file and performs a series of text substitutions to create a new file.
 
 	.PARAMETER InputFile
-	The file to be processed.  Required.
+	The file containing placeholders to be processed.  Required.
 
-	.PARAMETER releaseName
+	.PARAMETER OutputFile
 	The name of the file to write the processed output to.  Required.
 
-	.PARAMETER commitId
+	.PARAMETER SubstituteList
 	An XML data file containining a list of substitutions to be performed.  Substitutions follow the form
 
 	<substitutions>
