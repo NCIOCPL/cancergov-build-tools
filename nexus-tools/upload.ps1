@@ -46,8 +46,10 @@ $uploadParams = @{
 	Uri = $remoteUrl;
 	Method = 'PUT';
 	Credential = $credential;
+	InFile = $Filename;
 }
 
 $result = Invoke-RestMethod @uploadParams
 
-Write-Host $result
+Write-Host $result	
+
