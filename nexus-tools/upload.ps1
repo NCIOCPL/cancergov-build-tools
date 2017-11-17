@@ -13,11 +13,6 @@
 
 	.PARAMETER UserPass
 	The Nexus user's Password. Required.
-
-	.PARAMETER RepoURL
-	The Location in the Nexus repository to upload to.  Required.
-	(e.g. https://ncirepohub.nci.nihg.gov/nexus/repository/raw/organization-path/filename)
-
 #>
 
 Param(
