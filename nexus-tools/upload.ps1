@@ -5,7 +5,7 @@
 	.DESCRIPTION
 	Upload a file to the Nexus repository.
 
-	.PARAMETER UploadFile
+	.PARAMETER Filename
 	The file to be uploaded. Required.
 
 	.PARAMETER UserID
@@ -22,24 +22,28 @@
 
 Param(
 	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
-	[string]$UploadFile,
+	[string]$Filename,
 
 	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
 	[string]$UserID,
 
 	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
-	[string]$UserPass,
-
-	[Parameter(mandatory=$true, ValueFromPipeline=$false)]
-	[string]$RepoURL
+	[string]$UserPass
 )
 
+# Calculate the upload destination URL.
+$config = (Get-Content "config.json") -join "`n" | ConvertFrom-Json
+$remoteUrl = $config.baseUrl.Trim()
+if ( -not $remoteUrl.EndsWith('/') ) { $remoteUrl = $remoteUrl + '/' }
+$remoteUrl = $remoteUrl + $Filename
+
+# Create login credential
 $securePassword = ConvertTo-SecureString $UserPass -AsPlainText -Force
 $credential = New-Object PSCredential ($UserID, $securePassword)
 
 
 $uploadParams = @{
-	Uri = $RepoURL;
+	Uri = $remoteUrl;
 	Method = 'PUT';
 	Credential = $credential;
 }
