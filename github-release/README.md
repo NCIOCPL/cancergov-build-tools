@@ -21,11 +21,11 @@ The full set of command line switches is:
 * **-commitId** The hash value the tag should be placed on. **(Optional)**
 * **-IsPreRelease** If present, marks the release as a pre-release, else the release is marked as finalized. **(Optional)**
 * **-releaseNotes** A text description of the release. **(Required)**
-* **-artifactDirectory** Path to where the artifact to be uploaded may be found. **(Required)**
-* **-artifact**  Name of the file to be uploaded. This value also becomes the name of the artifact file to be downloaded.**(Required)**
+* **-artifactDirectory** Path to where the artifact to be uploaded may be found. **(Optional)**
+* **-artifact**  Name of the file to be uploaded. This value also becomes the name of the artifact file to be downloaded.**(Optional)**
 * **-gitHubUsername** User or organization who owns the remote repository
 * **-gitHubRepository** Name of the remote repository
-* **-gitHubApiKey** Personal access token with repo full control permission.  See: https://github.com/settings/tokens
+* **-gitHubApiKey** Personal access token with repo full control permission.  (See https://github.com/settings/tokens)
 
 ### Notes:
 

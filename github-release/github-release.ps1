@@ -14,10 +14,10 @@ Param(
     [Parameter(mandatory=$True, ValueFromPipeline=$False)]
     [string]$releaseNotes,
 
-    [Parameter(mandatory=$True, ValueFromPipeline=$False)]
+    [Parameter(mandatory=$False, ValueFromPipeline=$False)]
     [string]$artifactDirectory,
 
-    [Parameter(mandatory=$True, ValueFromPipeline=$False)]
+    [Parameter(mandatory=$False, ValueFromPipeline=$False)]
     [string]$artifactFileName,
 
     [Parameter(mandatory=$True, ValueFromPipeline=$False)]
@@ -82,7 +82,7 @@ function GitHub-Release($tagname, $releaseName, $commitId, $IsPreRelease, $relea
     $draft = $FALSE
 
     $releaseData = @{
-       tag_name = $tagname
+       tag_name = $tagname;
        name = $releaseName;
        body = $releaseNotes;
        draft = $draft;
@@ -107,22 +107,29 @@ function GitHub-Release($tagname, $releaseName, $commitId, $IsPreRelease, $relea
     }
 
     $result = Invoke-RestMethod @releaseParams
-    $uploadUri = $result | Select -ExpandProperty upload_url
-    Write-Host $uploadUri
-    $uploadUri = $uploadUri -creplace '\{\?name,label\}'  #, "?name=$artifact"
-    $uploadUri = $uploadUri + "?name=$artifact"
-    $uploadFile = Join-Path -path $artifactDirectory -childpath $artifact
 
-    $uploadParams = @{
-      Uri = $uploadUri;
-      Method = 'POST';
-      Headers = @{
-        Authorization = $auth;
-      }
-      ContentType = 'application/zip';
-      InFile = $uploadFile
+    if( [string]::IsNullOrWhiteSpace( $artifactDirectory ) -or [string]::IsNullOrWhiteSpace( $artifact ) ) {
+        Write-Host "ArtifactDirectory or artifact is blank.  Skipping  file upload."
     }
-    $result = Invoke-RestMethod @uploadParams
+    else {
+
+        $uploadUri = $result | Select-Object -ExpandProperty upload_url
+        $uploadUri = $uploadUri -creplace '\{\?name,label\}'  #, "?name=$artifact"
+        $uploadUri = $uploadUri + "?name=$artifact"
+        $uploadFile = Join-Path -path $artifactDirectory -childpath $artifact
+
+        $uploadParams = @{
+        Uri = $uploadUri;
+        Method = 'POST';
+        Headers = @{
+            Authorization = $auth;
+        }
+        ContentType = 'application/zip';
+        InFile = $uploadFile
+        }
+        $result = Invoke-RestMethod @uploadParams
+    }
+
 }
 
 Try {
