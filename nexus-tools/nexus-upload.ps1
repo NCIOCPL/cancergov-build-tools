@@ -57,15 +57,14 @@ $remoteUrl = $remoteUrl + $RemoteFilename
 $localPath = [System.IO.Path]::Combine($LocalDir, $Filename)
 
 # Create login credential
-$securePassword = ConvertTo-SecureString $UserPass -AsPlainText -Force
-$credential = New-Object PSCredential ($UserID, $securePassword)
-
+$bytes = [System.Text.Encoding]::UTF8.GetBytes("${UserID}:${UserPass}")
+$credential = [System.Convert]::ToBase64String($bytes)
 
 $uploadParams = @{
 	Uri = $remoteUrl;
 	Method = 'PUT';
-	Credential = $credential;
 	InFile = $localPath;
+	Headers = @{"Authorization"="Basic $credential"};
 }
 
 Try {
