@@ -6,7 +6,7 @@ This is a collection of scripts for working with a Nexus repository.
 * **download.ps1** - Retrieves the named file from the repository.
 
 At a high-level, the repository just deals in file uploads and retrievals.
-These scripts just simply the process.
+These scripts just simplify the process.
 
 **To upload:**
 * Use a PUT request.
