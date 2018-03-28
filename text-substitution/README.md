@@ -1,20 +1,35 @@
-This is a simple PowerShell script for doing string substitutions.
+Simple scripts for doing string substitutions.
 
 
 # Execution
 
-Execute with the command:
+## Windows
 
-```powershell .\substitution.ps1 <input> <output> <substitution_list>```
+Execute the PowerShell script with the command:
 
-*where*
+```
+powershell .\substitution.ps1 <input> <output> <substitution_list>
+```
 
-*`<input>`* is a text file containing text to be processed. Words to be replaced are surrounded by curly braces
-    _e.g. {REPLACE}
+## Linux
 
-*`<output>`* is the name of the output file
+Execute the Python script with the command:
 
-*`<substitution_list>`* is a list of substitutions.
+```
+python substitution.py -inputfile <output> -outputfile <output> -substitutelist <substitution_list>
+```
+
+Note that the Python script *requires* the use of the argument names.
+
+
+## Paramters
+
+* **`<input>`** is a text file containing text to be processed. Words to be replaced are surrounded by curly braces with a leading dollar sign.
+    *e.g. ${PLACEHOLDER}*
+
+* **`<output>`** is the name of the output file
+
+* **`<substitution_list>`** is a list of substitutions.
 
 ## Substitution List format
 

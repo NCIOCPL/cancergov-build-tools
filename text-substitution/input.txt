@@ -1,6 +1,6 @@
 Sample input text file
 Line 1  Line 1
-Line 2 {SIMPLE_TEXT} Line 2
+Line 2 ${SIMPLE_TEXT} Line 2
 Line 3  Line 3
-Line 4  {HTML_TEXT} Line 4
+Line 4  ${HTML_TEXT} Line 4
 Line 5  Line 5
