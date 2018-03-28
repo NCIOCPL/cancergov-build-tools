@@ -1,7 +1,6 @@
 import argparse
 
-#import xml.etree.ElementTree as ET
-from lxml import etree as ET
+import xml.etree.ElementTree as ET
 
 # Build a list of tuples with the first value being the text to find
 # and the second value being the replacement.
