@@ -22,6 +22,20 @@ def loadSubstitutions(substFile):
     return substitutions
 
 
+# Perform text substitutions.
+def performSubstitution(inputText, substitutions):
+    text = inputText
+
+    # Placeholders appear in the input text, with a leading dollar sign ($)
+    # and surrounded by curly braces.  So to replace 'PLACEHOLDER', search
+    # for '${PLACEHOLDER}'
+    for pair in substitutions:
+        placeholder = '${{{0}}}'.format(pair[0])
+        text = text.replace(placeholder, pair[1])
+
+    return text
+
+
 def main():
     parser = argparse.ArgumentParser(description='Simple text substitution tool.')
     parser.add_argument('-inputfile', action='store', required=True)
@@ -34,10 +48,14 @@ def main():
     # Load the file which the substitutions will be inserted into
     fi = open(args.inputfile, 'r')
     inputData = fi.read()
+    fi.close()
 
-# TODO:
-#    Perform substitution
-#    Save results
+    replacement = performSubstitution(inputData, substitutions)
+
+    # Save the processed text
+    fo = open(args.outputfile, 'w')
+    fo.write(replacement)
+    fo.close()
 
 
 if __name__ == "__main__":
