@@ -61,9 +61,9 @@ powershell .\download-release.ps1 <arguments>
 
 The full set of command line arguments is:
 
-* **-releaseName** The name of the release.**(Required)**
+* **-releaseName** The name of the release. **(Required)**
 * **-releaseFilename** The name of the release file to be downloaded.  If not specified, `releaseName` is used, with a .zip file extension. **(Optional)**
 * **-saveToPath** The filename and path for saving the downloaded file.  If not specified, `releaseFilename` is used, but this may not put
     the file in the expected location. **(Optional)**
-* **-gitHubUsername** User or organization who owns the remote repository
-* **-gitHubRepository** Name of the remote repository
+* **-gitHubUsername** User or organization who owns the remote repository **(Required)**
+* **-gitHubRepository** Name of the remote repository **(Required)**
