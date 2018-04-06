@@ -31,7 +31,6 @@ if( $gitHubApiKey -eq $null ) {
 
 Function Main ($gitHubUsername, $gitHubRepository, $releaseID) {
     $release = GetReleaseSingle $gitHubUsername $gitHubRepository $releaseID
-    $release
     $OKToProceed = ValidateRelease $release
     if($OKToProceed){
         Write-Host "deleting..."
