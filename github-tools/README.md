@@ -16,7 +16,9 @@ Unfortunately, [VirusTotal identifies the Windows version as potential malware](
 
 Execute with the command
 
-```powershell .\github-release.ps1 <options>```
+```
+powershell .\github-release.ps1 <arguments>
+```
 
 The full set of command line arguments is:
 
@@ -42,3 +44,26 @@ The full set of command line arguments is:
 ## list-releases.ps1
 
 Outputs a comma-delimited list of the releases associated with a repo.
+
+## delete-release.ps1
+
+Deletes a single release.  The release must be marked as a pre-release.
+
+## download-release.ps1
+
+### Execution
+
+Execute with the command
+
+```
+powershell .\download-release.ps1 <arguments>
+```
+
+The full set of command line arguments is:
+
+* **-releaseName** The name of the release. **(Required)**
+* **-releaseFilename** The name of the release file to be downloaded.  If not specified, `releaseName` is used, with a .zip file extension. **(Optional)**
+* **-saveToPath** The filename and path for saving the downloaded file.  If not specified, `releaseFilename` is used, but this may not put
+    the file in the expected location. **(Optional)**
+* **-gitHubUsername** User or organization who owns the remote repository **(Required)**
+* **-gitHubRepository** Name of the remote repository **(Required)**

@@ -14,8 +14,9 @@
 	.PARAMETER UserPass
 	The Nexus user's Password. Required.
 
-	.PARAMETER Destination
-	The location for storing the downloaded file.
+	.PARAMETER saveToPath
+        The filename and path for saving the downloaded file.  If not specified, `Filename` is used, but this may not put
+        the file in the expected location. (Optional)
 #>
 
 Param(
@@ -29,11 +30,17 @@ Param(
 	[string]$UserPass,
 
 	[Parameter(mandatory=$false, ValueFromPipeline=$false)]
-	[string]$Destination = "."
+	[string]$SaveToPath = "."
 )
 
 # Calculate the save file name.
-$SaveLocation = Join-Path -path $Destination $Filename
+#$SaveLocation = Join-Path -path $Destination $Filename
+    If([System.String]::IsNullOrEmpty($SaveToPath)) {
+        $SaveLocation = $Filename
+    } else {
+		$SaveLocation = $SaveToPath
+	}
+
 
 
 # Calculate the upload destination URL.
