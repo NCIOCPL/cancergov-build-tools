@@ -4,7 +4,7 @@
 # design choices:
 #
 #   1. Delete only one release per invocation.
-#   2. Only delete items marked as pre-release (final releases should be marked as such).
+#   2. Only delete items marked as prerelease (final releases should be marked as such).
 #   3. Require the user to confirm the deletion.
 
 
@@ -31,6 +31,7 @@ if( $gitHubApiKey -eq $null ) {
 
 Function Main ($gitHubUsername, $gitHubRepository, $releaseID) {
     $release = GetReleaseSingle $gitHubUsername $gitHubRepository $releaseID
+
     $OKToProceed = ValidateRelease $release
     if($OKToProceed){
         Write-Host "deleting..."
@@ -108,6 +109,6 @@ Try {
 }
 Catch {
 	# Explicitly exit with an error.
-	Write-Error "An error has occured $_"
+	Write-Error "An error has occurred $_"
 	Exit 1
 }
