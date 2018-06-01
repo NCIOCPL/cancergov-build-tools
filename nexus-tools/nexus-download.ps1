@@ -30,17 +30,16 @@ Param(
 	[string]$UserPass,
 
 	[Parameter(mandatory=$false, ValueFromPipeline=$false)]
-	[string]$SaveToPath = "."
+	[string]$SaveToPath = $null
 )
 
 # Calculate the save file name.
-#$SaveLocation = Join-Path -path $Destination $Filename
     If([System.String]::IsNullOrEmpty($SaveToPath)) {
-        $SaveLocation = $Filename
+        $SaveLocation = Join-Path -path "." $Filename
     } else {
 		$SaveLocation = $SaveToPath
 	}
-
+write-Host $SaveLocation
 
 
 # Calculate the upload destination URL.
@@ -51,14 +50,13 @@ if ( -not $remoteUrl.EndsWith('/') ) { $remoteUrl = $remoteUrl + '/' }
 $remoteUrl = $remoteUrl + $Filename
 
 # Create login credential
-$securePassword = ConvertTo-SecureString $UserPass -AsPlainText -Force
-$credential = New-Object PSCredential ($UserID, $securePassword)
-
+$bytes = [System.Text.Encoding]::UTF8.GetBytes("${UserID}:${UserPass}")
+$credential = [System.Convert]::ToBase64String($bytes)
 
 $downloadParams = @{
 	Uri = $remoteUrl;
 	Method = 'GET';
-	Credential = $credential;
+	Headers = @{"Authorization"="Basic $credential"};
 	OutFile = $SaveLocation;
 }
 
