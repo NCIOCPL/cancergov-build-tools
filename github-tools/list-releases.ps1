@@ -28,8 +28,11 @@ Function GetReleaseList($gitHubUsername, $gitHubRepository) {
 
     $auth = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($gitHubApiKey + ":x-oauth-basic"));
 
+    $pageNumber = 0
+    $reultList = $null
+
     $releaseRequest = @{
-       Uri = "https://api.github.com/repos/$gitHubUsername/$gitHubRepository/releases";
+       Uri = $null;
        Method = 'GET';
        Headers = @{
          Authorization = $auth;
@@ -38,8 +41,17 @@ Function GetReleaseList($gitHubUsername, $gitHubRepository) {
        Body = (ConvertTo-Json $releaseData -Compress)
     }
 
-    $result = Invoke-RestMethod @releaseRequest
-    return $result
+    # GitHub returns a "next page" in a Link header, but that's not accessible via Invoke-Request.
+    # If a given page has no results, the returned JSON array is empty, so we're able to just loop
+    # through from page 1 to <n>.
+    do {
+        $pageNumber++
+        $releaseRequest.Uri = "https://api.github.com/repos/$gitHubUsername/$gitHubRepository/releases?page=${pageNumber}"
+        $result = Invoke-RestMethod @releaseRequest
+        $reultList = $reultList + $result
+    } while ( $result.Length -gt 0 )
+
+    return $reultList
 }
 
 Function DisplayResults($releaseList) {
