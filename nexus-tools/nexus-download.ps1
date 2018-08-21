@@ -33,6 +33,10 @@ Param(
 	[string]$SaveToPath = $null
 )
 
+# NCI has deprecated TLS v1 and v1.1
+# This sets PowerShell to use TLS v1.2
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+
 # Calculate the save file name.
     If([System.String]::IsNullOrEmpty($SaveToPath)) {
         $SaveLocation = Join-Path -path "." $Filename

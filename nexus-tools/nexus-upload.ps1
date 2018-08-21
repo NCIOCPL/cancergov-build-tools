@@ -38,6 +38,10 @@ Param(
 	[string]$UserPass
 )
 
+# NCI has deprecated TLS v1 and v1.1
+# This sets PowerShell to use TLS v1.2
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+
 if( [string]::IsNullOrWhiteSpace( $RemoteFilename ) ) {
 	$RemoteFilename = $Filename
 }
